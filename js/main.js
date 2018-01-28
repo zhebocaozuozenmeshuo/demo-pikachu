@@ -1,18 +1,21 @@
 !function(){
+    let durartion = 1000 / 120
+    console.log(durartion)
     function writeCode(prefix, code, fn) {
         let container = document.querySelector('#code')
         let styleTag = document.querySelector('#styleTag')
         let n = 0
-        let id = setInterval(() => {
+        setTimeout(function loop() {
             n += 1
-            container.innerHTML = code.substring(0, n)
+            container.innerHTML = Prism.highlight( code.substring(0, n), Prism.languages.css);
             styleTag.innerHTML = code.substring(0, n)
             container.scrollTop = container.scrollHeight
-            if (n >= code.length) {
-                window.clearInterval(id)
+            if (n < code.length) {
+                setTimeout(loop, durartion);
+            } else {
                 fn && fn.call()
             }
-        }, 1000/77)
+        }, durartion)
     }
     let code =    
 `
@@ -26,6 +29,7 @@
     justify-content: center;
     align-items: center;
     background: #FEE433;
+    animation:
 }
 .wrapper {
     width: 100%;
@@ -60,7 +64,7 @@
     border: 2px solid #000;
 }
 /*
-* 画带光的眼球~
+* 画带光的眼珠~
 */
 .eye::before {
     content: '';
@@ -115,7 +119,7 @@
     margin-left: 116px;
 }
 /*
-* emms 那么，要画皮卡丘的上嘴唇了
+* emms 那么，要画皮卡丘的胡须了
 */
 .upperLip {
     height: 30px;
@@ -126,7 +130,7 @@
     background: #FEE433;
 }
 /*
-* 放到左边
+* 左胡须
 */
 .upperLip.left {
     right: 50%;
@@ -136,7 +140,7 @@
     transform: rotate(-20deg);
 }
 /*
-* 放到右边
+* 右胡须
 */
 .upperLip.right {
     left: 50%;
@@ -170,7 +174,7 @@
     overflow: hidden;
 }
 /*
-* 画皮卡丘的舌头
+* 小舌头
 */
 .lowerLip::after{
     content: '';
@@ -183,7 +187,26 @@
     margin-left: -65px;
     border-radius: 50%;
 }
-/* 喏 皮卡丘 画完了 */
+/*
+* 喏 画完了 
+* 这只皮卡丘送给你 
+*/
     `
     writeCode('', code)
+    $('.actions').on('click', 'button', function(e) {
+        let $button = $(e.currentTarget)
+        let speed = $button.attr('data-speed')
+        $button.addClass('active').siblings('.active').removeClass('active')
+        switch (speed) {
+            case 'slow':
+                durartion = 1000 / 60
+                break
+            case 'normal':
+                durartion = 1000 / 120
+                break
+            case 'quick':
+                durartion = 1000 / 480
+                break
+        }
+    })
 }.call()

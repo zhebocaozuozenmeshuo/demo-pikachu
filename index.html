@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>画一只皮卡丘给你看</title>
     <!-- <title>Draw Pikachu</title> -->
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <link href="vendor/prism/prism.css" rel="stylesheet" />
+    <script src="vendor/prism/prism.js"></script>
     <style id="styleTag"></style>
     <link rel="stylesheet" href="css/default.css">
 </head>
@@ -34,7 +38,11 @@
             </div>
         </div>
     </div>
-   
+   <div class="actions">
+       <button data-speed='slow'>Slow</button>
+       <button data-speed='normal' class="active">Normal</button>
+       <button data-speed='quick'>Quick</button>
+   </div>
     <script src="js/main.js"></script>
 </body>
 </html>
